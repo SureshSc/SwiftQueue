@@ -1,0 +1,64 @@
+language: swift
+osx_image: xcode9.3
+
+cache:
+  directories:
+  - Carthage
+
+env:
+  global:
+  - LC_CTYPE=en_US.UTF-8
+  - LANG=en_US.UTF-8
+
+  - IOS_FRAMEWORK_SCHEME="SwiftQueue iOS"
+  - MACOS_FRAMEWORK_SCHEME="SwiftQueue macOS"
+  - TVOS_FRAMEWORK_SCHEME="SwiftQueue tvOS"
+  - WATCHOS_FRAMEWORK_SCHEME="SwiftQueue watchOS"
+
+  - WORKSPACE="SwiftQueue.xcodeproj"
+  - DESTINATION="arch=x86_64"
+
+  matrix:
+    - TYPE="DANGER"  
+    - TYPE="CARTHAGE"
+    - TYPE="SPM"     
+    - TYPE="XCODE"   
+    - TYPE="POD"     
+
+before_install:
+  - if [ $TYPE == "DANGER" ]; then
+      brew install swiftlint;
+      bundle install --path vendor/bundle;
+    fi
+
+script:
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -showsdks
+
+  - if [ $TYPE == "DANGER" ]; then
+      bundle exec danger;
+    fi
+
+  - if [ $TYPE == "XCODE" ]; then
+      carthage bootstrap --platform mac --cache-builds;
+      xcodebuild -project "$WORKSPACE" -scheme "$MACOS_FRAMEWORK_SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO ENABLE_TESTABILITY=YES test -enableCodeCoverage YES | xcpretty;
+    fi
+
+  - if [ $TYPE == "CARTHAGE" ]; then
+      carthage bootstrap --cache-builds;
+      carthage build --no-skip-current --cache-builds;
+    fi
+
+  - if [ $TYPE == "SPM" ]; then
+      swift test;
+    fi
+    
+  - if [ $TYPE == "POD" ]; then
+      pod lib lint --allow-warnings;
+    fi
+
+after_success:
+  - if [ $TYPE == "XCODE" ]; then
+      bash <(curl -s https://codecov.io/bash);
+    fi
