@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version          = "2.1.1"
   s.summary          = "SwiftQueue"
   s.description      = "Job Scheduler for IOS with Concurrent run, failure/retry, persistence, repeat, delay and more"
-  s.homepage         = "https://github.com/lucas34/SwiftQueue"
+  s.homepage         = "https://github.com/SureshSc/SwiftQueue"
   s.license          = 'MIT'
   s.author           = { "Lucas Nelaupe" => "lucas.nelaupe@gmail.com" }
   s.source           = { :git => "https://github.com/SureshSc/SwiftQueue.git", :tag => s.version.to_s }
