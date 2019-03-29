@@ -1,5 +1,36 @@
 # Change Log
 
+## [2.4.0](https://github.com/lucas34/SwiftQueue/tree/2.4.0)
+
+#### Linux Support 🙌
+- SwiftQueue is now avaiable on Linux (#189)
+
+#### Chore
+- Bump Reachability to 4.3.0 (#190)
+
+## [2.3.0](https://github.com/lucas34/SwiftQueue/tree/2.3.0)
+
+#### Bug Fix
+- Revise charging constraint implementation (#177)
+
+#### Chore
+- Swift 4.2 and Xcode 10 support (#181) (#182) (#187)
+- Bump Reachability to 4.2.1 for carthage (#174)
+- Bump Reachability and change origin for SPM (#175)
+- Bump Rechability for pod #172
+
+## [2.2.0](https://github.com/lucas34/SwiftQueue/tree/2.2.0)
+
+#### New features
+- Expose `count` inside `SwiftQueueManager` (#160)
+
+#### Improvement
+- Change SPM deps for reachability to original #167
+
+#### Chore
+- Update copyrights (#162)
+- Bump DEPS (#161) (#163) (#165) (#168)
+
 ## [2.1.0](https://github.com/lucas34/SwiftQueue/tree/2.1.0)
 
 #### Breaking Changes
@@ -140,7 +171,7 @@ Develop 1.3.0 Re-write 90% of the code (#22)
 - Scheduling a job without a creator will throw an error (Assertion)
 - Replace Any params type to [String: Any] (#20) 
 - Callback result now use enum to avoid passing nil error as success (#26)
-- onRemove will foward JobCompletion (#32)
+- onRemove will forward JobCompletion (#32)
 - Remove delay(inSecond) use delay(time) instead 
 
 #### Bug fix and improvements 
